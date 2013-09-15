@@ -1,0 +1,2 @@
+Website that shows latest courses from Coursera.com. The main point
+of the site is the email newsletter which sends an email whenever a new course is added.

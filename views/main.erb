@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf8">
+	<title>Latest Coursera Classes</title>
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+	<style type="text/css">
+      body {
+        padding-top: 20px;
+        padding-bottom: 40px;
+      }
+
+      /* Custom container */
+      .container-narrow {
+        margin: 0 auto;
+        max-width: 700px;
+      }
+      .container-narrow > hr {
+        margin: 30px 0;
+      }
+
+      /* Main marketing message and sign up button */
+      .jumbotron {
+        margin: 60px 0;
+        text-align: center;
+      }
+      .jumbotron h1 {
+        font-size: 72px;
+        line-height: 1;
+      }
+      .jumbotron .btn {
+        font-size: 21px;
+        padding: 14px 24px;
+      }
+
+      /* Supporting marketing content */
+      .marketing {
+        margin: 60px 0;
+      }
+      .marketing p + h4 {
+        margin-top: 28px;
+      }
+    </style>
+    <link href="css/bootstrap-responsive.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container-narrow">
+
+    	<div class="masthead">
+        <h3 class="muted">Coursera Class Tracker</h3>
+        </div>
+
+
+        <hr>
+
+        <div style="text-align:center">
+				<h3> Latest Courses </h3>
+				<div class="form-horizontal">
+					<form action="/" method="post">
+						<select name="category">
+							<option value="All">All Categories</option>
+							<option value="Arts">Arts</option>
+							<option value="Biology & Life Sciences">Biology & Life Sciences</option>
+							<option value="Business & Management">Business & Management</option>
+							<option value="Chemistry">Chemistry</option>
+							<option value="Computer Science: Artificial Intelligence">CS: Artificial Intelligence</option>
+							<option value="Computer Science: Software Engineering">CS: Software Engineering</option>
+							<option value="Computer Science: Systems & Security">CS: Systems & Security</option>
+							<option value="Computer Science: Theory">CS: Theory</option>
+							<option value="Economics & Finance">Economics & Finance</option>
+							<option value="Education">Education</option>
+							<option value="Energy & Earth Sciences">Energy & Earth Sciences</option>
+							<option value="Engineering">Engineering</option>
+							<option value="Food and Nutrition">Food and Nutrition</option>
+							<option value="Health & Society">Health & Society</option>
+							<option value="Humanities">Humanities</option>
+							<option value="Information, Tech & Design">Information, Tech & Design</option>
+							<option value="Law">Law</option>
+							<option value="Mathematics">Mathematics</option>
+							<option value="Medicine">Medicine</option>
+							<option value="Music, Film, and Audio">Music, Film, and Audio</option>
+							<option value="Physical & Earth Sciences">Physical & Earth Sciences</option>
+							<option value="Physics">Physics</option>
+							<option value="Social Sciences">Social Sciences</option>
+							<option value="Statistics and Data Analysis">Statistics and Data Analysis</option>
+							<option value="Teacher Professional Development">Teacher Professional Development</option>
+						</select>
+						<button type="submit">Go</button>
+					</form>
+				</div>
+
+				<ol style="text-align:left;background:#F5F0F2">
+					<% i = 1 %>
+					<% @courses.each do |course| %>
+							<% if course.categories.include?(@categorySelection) ||  @categorySelection == nil ||  @categorySelection == "All" %>
+							<% if i <= NUM_DISPLAY_COURSES  %>
+								<li><a href="<%= course.link %>"><%=h course.title %></a></li>
+								
+							<% end %>
+							<% i += 1 %>	
+						<% end %>
+					<% end %>
+				</ol>
+		</div>
+
+
+	</div>
+    
+    <hr>
+	<div class="jumbotron">
+        <h4>Get email notifications whenever new courses are added!</h1>
+        <form action="/" method="post">
+			<input type="text" name = "newemail" placeholder="Email&hellip;">
+			<p><button class="btn btn-small btn-primary" type="submit">Subscribe</button></p>
+		</form>
+    </div>
+
+	<script src="http://code.jquery.com/jquery.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+
+</body>
+</html>
