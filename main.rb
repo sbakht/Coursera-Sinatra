@@ -5,7 +5,7 @@ require_relative 'myfunctions'
 
 production = true
 if production
-	DataMapper.setup(:default, ENV['DATABASE_URL'] || 'sqlite3://courses.db')
+	DataMapper.setup(:default, ENV['DATABASE_URL'] || 'sqlite3://#{Dir.pwd}/courses.db')
 else 
 	require 'sinatra/reloader'
 	#DataMapper::setup(:default, "sqlite3://courses.db")
