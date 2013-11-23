@@ -1,12 +1,18 @@
 require 'sinatra'
-#require 'sinatra/reloader'
 require 'data_mapper'
 require_relative 'myfunctions'
 
 
+production = true
+if production
+	DataMapper.setup(:default, ENV['DATABASE_URL'] || 'sqlite3://courses.db')
+else 
+	require 'sinatra/reloader'
+	DataMapper::setup(:default, "sqlite3://courses.db")
+end
+
 NUM_DISPLAY_COURSES = 10
 
-DataMapper::setup(:default, "sqlite3://#{Dir.pwd}/courses.db")
 
 class CourseDB
 	include DataMapper::Resource
