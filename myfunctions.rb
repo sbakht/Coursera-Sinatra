@@ -55,7 +55,7 @@ def emailUsers(newCourses)
 	emailList = EmailDB.all :order => :id.asc
 	emailList.each do |emailItem|
 	    Pony.mail({ :to => emailItem.email, #.email is the email piece from an emailItem is an item in database
-	    :from => 'me@example.com',
+	    :from => 'classnotify@courseratracker.com',
 	    :subject => 'New Coursera Classes Notification',
 	    :body => "Courses recently added:\n#{newCourses}",
 	    :via => :smtp,
