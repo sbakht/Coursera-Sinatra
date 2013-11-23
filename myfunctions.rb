@@ -1,10 +1,11 @@
-
+require 'openssl'
+require 'net/http'
+require 'uri'
+require 'json'
+require 'yaml'
+require 'pony'
 
 def getCourses
-	require 'openssl'
-	require 'net/http'
-	require 'uri'
-	require 'json'
 		
 	uri = URI.parse("https://www.coursera.org/maestro/api/topic/list?full=1")
 	http = Net::HTTP.new(uri.host, uri.port)
@@ -23,7 +24,11 @@ def getCourses
 		result["categories"].each do |category| 
 			categories << category["name"] #gets categories for each class
 		end
-		courses << {"title" => result["name"], "link" => result["courses"][0]["home_link"], "categories" => categories}
+		if result["courses"][0] #checks that home_link exists(was causing problems on some courses)
+			courses << {"title" => result["name"], "link" => result["courses"][0]["home_link"], "categories" => categories}
+		else
+			courses << {"title" => result["name"], "link" => "https://www.coursera.org", "categories" => categories}
+		end
 		i +=1
 	end
 
@@ -49,7 +54,6 @@ def updateAndEmailDatabase
 end
 
 def emailUsers(newCourses)
-	require 'pony'
 
 	loginDetails = smtpLogin
 	emailList = EmailDB.all :order => :id.asc
@@ -73,7 +77,6 @@ def emailUsers(newCourses)
 end
 
 def smtpLogin
-	require 'yaml'
 	contents = YAML.load_file('config.yml')
 	return contents
 end
