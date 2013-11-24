@@ -3,6 +3,10 @@ require 'sequel'
 enable :sessions
 require_relative 'myfunctions'
 
+before do
+  logger.level = 0
+end
+
 production = true
 if production
 	DB = Sequel.connect(ENV['DATABASE_URL'] || 'sqlite://course.db')
