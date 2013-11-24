@@ -13,14 +13,15 @@ def getCourses
 	# http.use_ssl = true
 	# http.verify_mode = OpenSSL::SSL::VERIFY_NONE
 	# response = http.request(Net::HTTP::Get.new(uri.request_uri))
+#############
+	# req = Net::HTTP::Get.new(url.path)
+	# response = Net::HTTP.start(url.host, url.port) {|http|
+	#   http.request(req)
+	# }
+	# puts response.body
 
-	req = Net::HTTP::Get.new(url.path)
-	response = Net::HTTP.start(url.host, url.port) {|http|
-	  http.request(req)
-	}
-	puts response.body
-
-	results = JSON.parse(response.body)
+	results = ["title" => "jack", "link" => "google.com", "categories" => "lol"]
+	puts results
 
 	courses = []
 	i = 1
