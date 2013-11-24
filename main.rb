@@ -21,12 +21,6 @@ helpers do
 end
 
 
-Thread.new do # trivial example work thread
-  while true do
-  	sleep 3600
-    updateAndEmailDatabase(DB)
-  end
-end
 
 get '/' do
 	@courses = DB[:courses].reverse_order(:id).all #reverses order so latest courses at top
@@ -58,4 +52,11 @@ post '/emailSubmit' do
 	end
 	flash[:notice] = "Your email has been added to the mailing list!"
 	redirect '/'
+end
+
+Thread.new do # trivial example work thread
+  while true do
+  	sleep 3600
+    updateAndEmailDatabase(DB)
+  end
 end

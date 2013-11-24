@@ -6,22 +6,14 @@ require 'yaml'
 require 'pony'
 
 def getCourses
-	
-	url = "https://www.coursera.org/maestro/api/topic/list?full=1"
-	# uri = URI.parse(url)
-	# http = Net::HTTP.new(uri.host, uri.port)
-	# http.use_ssl = true
-	# http.verify_mode = OpenSSL::SSL::VERIFY_NONE
-	# response = http.request(Net::HTTP::Get.new(uri.request_uri))
-#############
-	# req = Net::HTTP::Get.new(url.path)
-	# response = Net::HTTP.start(url.host, url.port) {|http|
-	#   http.request(req)
-	# }
-	# puts response.body
+		
+	uri = URI.parse("https://www.coursera.org/maestro/api/topic/list?full=1")
+	http = Net::HTTP.new(uri.host, uri.port)
+	http.use_ssl = true
+	http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+	response = http.request(Net::HTTP::Get.new(uri.request_uri))
 
-	results = ["title" => "jack", "link" => "google.com", "categories" => "lol"]
-	puts results
+	results = JSON.parse(response.body)
 
 	courses = []
 	i = 1
