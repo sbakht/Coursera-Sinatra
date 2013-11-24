@@ -4,12 +4,12 @@ enable :sessions
 require_relative 'myfunctions'
 
 production = true
-if production
-	DB = Sequel.connect(ENV['DATABASE_URL'] || 'sqlite://course.db')
-else 
-	require 'sinatra/reloader'
-	DB = Sequel.connect('sqlite://course.db')
-end
+# if production
+# 	DB = Sequel.connect(ENV['DATABASE_URL'] || 'sqlite://course.db')
+# else 
+# 	require 'sinatra/reloader'
+# 	DB = Sequel.connect('sqlite://course.db')
+# end
 
 NUM_DISPLAY_COURSES = 10
 
@@ -29,8 +29,8 @@ Thread.new do # trivial example work thread
 end
 
 get '/' do
-	@courses = DB[:courses].reverse_order(:id).all #reverses order so latest courses at top
-	@emails = DB[:emails].all
+	@courses = "ggg" #reverses order so latest courses at top
+	@emails = "gggg"
 	erb :main
 end
 
