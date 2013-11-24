@@ -40,6 +40,12 @@
       .marketing p + h4 {
         margin-top: 28px;
       }
+
+      .notice {
+      	color: green;
+      	font-weight: bold;
+      	text-align: center;
+      }
     </style>
     <link href="css/bootstrap-responsive.css" rel="stylesheet">
 </head>
@@ -50,6 +56,12 @@
     	<div class="masthead">
         <h3 class="muted">Coursera Class Tracker</h3>
         </div>
+
+        <div id='flash' class='notice'>
+		 	<% if flash[:notice] %>  
+		    <p class="notice"><%= flash[:notice] %>  
+		<% end %>  
+		</div>
 
 
         <hr>
@@ -93,11 +105,12 @@
 				<ol style="text-align:left;background:#F5F0F2">
 					<% i = 1 %>
 					<% @courses.each do |course| %>
-							<% if course.categories.include?(@categorySelection) ||  @categorySelection == nil ||  @categorySelection == "All" %>
-							<% if i <= NUM_DISPLAY_COURSES  %>
-								<li><a href="<%= course.link %>"><%=h course.title %></a></li>
-								
-							<% end %>
+							<% @categorySelection = "All" if @categorySelection == nil %>				
+							<% if course[:categories].to_s.include?(@categorySelection) ||  @categorySelection == "All" %>
+								<% if i <= NUM_DISPLAY_COURSES  %>
+									<li><a href="<%= course[:link] %>"><%=h course[:title] %></a></li>
+									
+								<% end %>
 							<% i += 1 %>	
 						<% end %>
 					<% end %>
@@ -110,7 +123,7 @@
     <hr>
 	<div class="jumbotron">
         <h4>Get email notifications whenever new courses are added!</h1>
-        <form action="/" method="post">
+        <form action="/emailSubmit" method="post">
 			<input type="text" name = "newemail" placeholder="Email&hellip;">
 			<p><button class="btn btn-small btn-primary" type="submit">Subscribe</button></p>
 		</form>

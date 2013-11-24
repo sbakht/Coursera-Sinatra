@@ -36,27 +36,24 @@ def getCourses
 	return courses
 end
 
-def updateAndEmailDatabase
+def updateAndEmailDatabase(dB)
 	newCourses = ""
+	c = dB[:courses]
 	@courses = getCourses
 	@courses.each do |course|
-		if !CourseDB.first(:title => course['title']) #checks for duplicate DB entries
-			c = CourseDB.new
-			c.title = course['title']
-			c.link = course['link']
-			c.categories = course['categories']
-			c.save
+		if !c.first(:title => course['title']) #checks for duplicate DB entries
+			c.insert(:title => course["title"], :link => course["link"], :categories => course["categories"].join(","))
 			newCourses << "#{course['title']} - #{course['link']} \n\n"
 		end
 	end
-	emailUsers(newCourses)
+	emailUsers(newCourses, dB)
 	redirect '/'
 end
 
-def emailUsers(newCourses)
+def emailUsers(newCourses, dB)
 
 	loginDetails = smtpLogin
-	emailList = EmailDB.all :order => :id.asc
+	emailList = dB[:emails].all
 	emailList.each do |emailItem|
 	    Pony.mail({ :to => emailItem.email, #.email is the email piece from an emailItem is an item in database
 	    :from => 'classnotify@courseratracker.com',
