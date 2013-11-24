@@ -1,6 +1,7 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    json (1.8.1)
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
@@ -26,6 +27,7 @@ PLATFORMS
   x86-mingw32
 
 DEPENDENCIES
+  json
   pg
   pony
   sequel
