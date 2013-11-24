@@ -1,6 +1,5 @@
 require 'sinatra'
 require 'sequel'
-require 'sinatra/flash'
 enable :sessions
 require_relative 'myfunctions'
 
